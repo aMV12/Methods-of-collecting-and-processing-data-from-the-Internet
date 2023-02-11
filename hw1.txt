@@ -1,0 +1,40 @@
+#Task 1
+import requests
+import json
+
+params = {'q': 'name', 'id': '69846294'}
+
+url = 'https://api.github.com'
+
+user = 'aMV12'
+
+responce = requests.get(f'{url}/users/{user}/repos')
+
+with open('data.json', 'w') as f:
+    json.dump(responce.json(), f)
+
+for i in responce.json():
+    print(i['full_name'])
+
+
+#Task 2
+import requests
+
+import json
+
+url = 'https://api.vk.com'
+
+method = 'friends.getOnline'
+
+user_id = '474319172'
+
+access_token = ''
+
+responce = requests.get(f'{url}/method/{method}?v=5.52&access_token={access_token}')
+
+with open('data.json', 'w') as f:
+    json.dump(responce.json(), f)
+
+print(responce.json())
+
+{'response': [47207942]}
