@@ -1,0 +1,42 @@
+from lxml import html
+from pprint import pprint
+import requests
+
+url = 'https://lenta.ru/'
+
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.167 YaBrowser/22.7.3.822 Yowser/2.5 Safari/537.36',
+}
+
+response = requests.get(url, headers=headers)
+
+response.url
+
+dom = html.fromstring(response.text)
+
+lenta_News = []
+all_news = []
+
+items = dom.xpath("//div[@class = 'span4']/div[@class = 'item' or @class = 'first-item']")
+for item in items:
+    news = {}
+    news['time'] = item.xpath(".//time[@class = 'g-time']/text()")
+    news['date'] = item.xpath(".//time/@title")
+    news_l = item.xpath(".//a/@href")
+    news['link'] = f'https://lenta.ru{news_l[0]}'
+    news['news'] = item.xpath(".//a[contains (@href, '/news/')]/text()")
+    news['resource'] = "lenta.ru"
+    all_news.append(news)
+
+    strings = []
+    for key, item in news.items():
+        strings.append("{}: {}".format(key.capitalize(), item))
+    result = "; ".join(strings)
+    new_result = result.replace(u"\\xa0", u" ").replace(u", 'Отменить'", u"")
+    lenta_News.append(new_result)
+all_lenta_News = []
+for x in lenta_News:
+    if x not in all_lenta_News:
+        all_lenta_News.append(x)
+
+pprint(all_lenta_News)
