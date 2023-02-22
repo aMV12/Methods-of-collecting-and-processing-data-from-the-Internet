@@ -15,7 +15,6 @@ _PASSWORD = NewPassord123#
 
 
 def _parse_email(driver):
-    """Parse email."""
 
     letter = dict()
 
@@ -54,7 +53,6 @@ def _parse_email(driver):
 
 
 def _main():
-    """Entry point."""
 
     client = MongoClient('localhost', 27017)
     mongo_base = client['mail_db']
