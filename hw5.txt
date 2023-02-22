@@ -11,7 +11,7 @@ from selenium.common import exceptions
 
 
 _LOGIN = fobexe3087@otanhome.com
-_PASSWORD = NewPassord#
+_PASSWORD = NewPassord123#
 
 
 def _parse_email(driver):
