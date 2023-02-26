@@ -131,12 +131,10 @@ class InstagramcomSpider(scrapy.Spider):
 
             yield item
 
-    #Получаем токен для авторизации
     def fetch_csrf_token(self, text):
         matched = re.search('\"csrf_token\":\"\\w+\"', text).group()
         return matched.split(':').pop().replace(r'"', '')
 
-    #Получаем id желаемого пользователя
     def fetch_user_id(self, text, username):
         matched = re.search(
             '{\"id\":\"\\d+\",\"username\":\"%s\"}' % username, text
